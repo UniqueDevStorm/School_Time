@@ -53,6 +53,16 @@ if (now.getDay() === 6 || now.getDay() === 0) {
 }
 
 function Home({ data }) {
+    if (data[0].length === 0) {
+        data[0] = '어제는 급식이 없었어요!'
+    }
+    if (data[1].length === 0) {
+        data[1] = '오늘은 급식이 없어요!'
+    }
+    if (data[2].length === 0) {
+        data[2] = '내일은 급식이 없어요!'
+    }
+    console.log(data)
     return (
         <div className='text-center font-bold'>
           <h1 className='text-5xl my-20'>🧭학교 시간 알리미</h1>
@@ -64,21 +74,19 @@ function Home({ data }) {
             <Clock format={'HH:mm:ss'} ticking={true} />
           }</h1>
           <h1 className='text-2xl'>{messages}</h1>
-          <h1>{data.server_message.map((x, y)=><p key={y}>{x}</p>)}</h1>
         </div>
     )
 }
 
 Home.getInitialProps = async (ctx) => {
-    const today = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${now.getFullYear()}&month=${now.getMonth()}&date=${now.getDate()}`)).json()
-    const _yesterday = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${yesterday.getFullYear()}&month=${yesterday.getMonth()}&date=${yesterday.getDate()}`)).json()
-    const _tomorrow = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${tomorrow.getFullYear()}&month=${tomorrow.getMonth()}&date=${tomorrow.getDate()}`)).json()
+    const today = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${now.getFullYear()}&month=${now.getMonth() + 1}&date=${now.getDate()}`)).json()
+    const _yesterday = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${yesterday.getFullYear()}&month=${yesterday.getMonth() + 1}&date=${yesterday.getDate()}`)).json()
+    const _tomorrow = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${tomorrow.getFullYear()}&month=${tomorrow.getMonth() + 1}&date=${tomorrow.getDate()}`)).json()
     let data = []
-    data.push(today.menu[0].lunch)
     data.push(_yesterday.menu[0].lunch)
+    data.push(today.menu[0].lunch)
     data.push(_tomorrow.menu[0].lunch)
-    console.log(data)
-    return { data: today }
+    return { data: data }
 };
 
 export default Home;

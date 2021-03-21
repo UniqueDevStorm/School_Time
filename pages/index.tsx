@@ -10,7 +10,11 @@ const hours = now.getHours();
 const minutes = now.getMinutes();
 const day = now.getDay()
 const currentDay = days[day];
-import styled from 'styled-components'
+import styled from 'styled-components';
+import jwt from 'jsonwebtoken';
+import * as cookie from 'cookie';
+import { useEffect } from "react";
+import {use} from "ast-types";
 
 const TableContainer = styled.div`
   th, td {
@@ -108,7 +112,31 @@ if (now.getDay() === 6 || now.getDay() === 0) {
     }
 }
 
-function Home({data}) {
+export async function getServerSideProps(ctx) {
+    const today = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${now.getFullYear()}&month=${now.getMonth() + 1}&date=${now.getDate()}&allergy=hidden`)).json()
+    const _yesterday = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${yesterday.getFullYear()}&month=${yesterday.getMonth() + 1}&date=${yesterday.getDate()}&allergy=hidden`)).json()
+    const _tomorrow = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${tomorrow.getFullYear()}&month=${tomorrow.getMonth() + 1}&date=${tomorrow.getDate()}&allergy=hidden`)).json()
+    let data = []
+    data.push(_yesterday.menu[0].lunch)
+    data.push(today.menu[0].lunch)
+    data.push(_tomorrow.menu[0].lunch)
+    let key = null;
+    try {
+        const cookies = cookie.parse(ctx.req.headers.cookie);
+        const user = cookies.token;
+        key = jwt.verify(user, 'seokgwanms');
+    } catch {
+        key = null
+    }
+    return {
+        props: {
+            data: data,
+            token: key
+        }
+    }
+}
+
+function Home({ data, token }) {
     if (data[0].length === 0) {
         data[0] = '어제는 급식이 없었어요!'
     }
@@ -118,6 +146,11 @@ function Home({data}) {
     if (data[2].length === 0) {
         data[2] = '내일은 급식이 없어요!'
     }
+    useEffect(() => {
+        if (token === null) {
+            window.location.replace('/login')
+        }
+    })
     return (
         <div className='text-center font-bold'>
             <h1 className='text-5xl my-10'>🧭학교 시간 알리미</h1>
@@ -220,16 +253,5 @@ function Home({data}) {
         </div>
     )
 }
-
-Home.getInitialProps = async () => {
-    const today = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${now.getFullYear()}&month=${now.getMonth() + 1}&date=${now.getDate()}&allergy=hidden`)).json()
-    const _yesterday = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${yesterday.getFullYear()}&month=${yesterday.getMonth() + 1}&date=${yesterday.getDate()}&allergy=hidden`)).json()
-    const _tomorrow = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${tomorrow.getFullYear()}&month=${tomorrow.getMonth() + 1}&date=${tomorrow.getDate()}&allergy=hidden`)).json()
-    let data = []
-    data.push(_yesterday.menu[0].lunch)
-    data.push(today.menu[0].lunch)
-    data.push(_tomorrow.menu[0].lunch)
-    return {data: data}
-};
 
 export default Home;

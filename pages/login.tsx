@@ -1,37 +1,41 @@
-import { Component } from "react";
-import { Input, Button, Container, Header } from 'semantic-ui-react';
-import styled from "styled-components";
+import { TextField, Button } from "@material-ui/core";
+import { withSnackbar, useSnackbar } from "notistack";
 
-export default class login extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {visibility: 'hidden'}
-    }
-    render() {
-        return (
-            <div className='text-center my-10'>
-                <Input
-                    label={{ basic: true, content: '학번' }}
-                    placeholder='학번을 입력해주세요'
-                    id='classnumber'
-                />
-                <Button onClick={() => {
-                    const value = document.getElementById('classnumber').value;
+function login() {
+    const { enqueueSnackbar } = useSnackbar();
+    const handleClick = (message) => {
+        enqueueSnackbar(message, {
+            variant: 'error'
+        });
+    };
+    return (
+        <div className='text-center my-10'>
+            <div>
+                <TextField label='학번' id='classnum' />
+            </div>
+            <div className='my-5'>
+                <Button variant="contained" color='primary' onClick={() => {
+                    const value = document.getElementById('classnum').value;
                     if (value.length === 5) {
-                        
+                        if (value[0] === '3') {
+                            if (value[2] === '2') {
+                                fetch('/api/check', {
+                                    method: 'POST'
+                                }).then()
+                                window.location.replace('/')
+                            } else {
+                                handleClick('2반 이외 출입 금지')
+                            }
+                        } else {
+                            handleClick('3학년 이외 출입 금지')
+                        }
                     } else {
-                        this.setState({ visibility: 'visible' })
-                        setTimeout(() => this.setState({ visibility: 'hidden' }), 3000)
+                        handleClick('올바른 학번을 입력해주세요.')
                     }
                 }}>Enter</Button>
-
-                <Container className='my-5 bg-red-500 p-8 lg:w-1/3 rounded-xl' style={{ visibility: this.state.visibility }}>
-                    <Header as='h2'>Warning</Header>
-                    <p>
-                        학번은 정상적으로 써주세요.
-                    </p>
-                </Container>
             </div>
-        )
-    }
+        </div>
+    )
 }
+
+export default withSnackbar(login)

@@ -9,9 +9,11 @@ tomorrow.setDate(now.getDate() + 1);
 const days = ["일","월","화","수","목","금","토"];
 const hours = now.getHours();
 const minutes = now.getMinutes();
-const currentDay = days[now.getDay()];
+const day = now.getDay()
+const currentDay = days[day];
 
 let messages;
+let classmsg;
 if (now.getDay() === 6 || now.getDay() === 0) {
     messages = '오늘은 즐거운 주말!'
 } else {
@@ -23,6 +25,12 @@ if (now.getDay() === 6 || now.getDay() === 0) {
     }
     if (hours === 8 && minutes >= 50 || hours === 9 && minutes < 35) {
         messages = '1교시 하자!'
+        if (day === 1 || day === 2) {
+            classmsg = '역사 수업 들어가기'
+        }
+        if (day === 3 || day === 4) {
+            classmsg = '영어B 수업 들어가기'
+        }
     }
     if (hours === 9 && minutes >= 35 || hours === 10 && minutes < 25) {
         messages = '2교시 하자!'
@@ -62,7 +70,6 @@ function Home({ data }) {
     if (data[2].length === 0) {
         data[2] = '내일은 급식이 없어요!'
     }
-    console.log(data)
     return (
         <div className='text-center font-bold'>
           <h1 className='text-5xl my-20'>🧭학교 시간 알리미</h1>
@@ -74,11 +81,26 @@ function Home({ data }) {
             <Clock format={'HH:mm:ss'} ticking={true} />
           }</h1>
           <h1 className='text-2xl'>{messages}</h1>
+          <h2 className='text-2xl'>{classmsg}</h2>
+          <div className='my-20 text-3xl'>
+              <div>
+                  <h1>어제 급식이 뭐였지?</h1>
+                  <h2>{data[0]}</h2>
+              </div>
+              <div>
+                  <h1>오늘 급식은 뭐야?!</h1>
+                  <h2>{data[1]}</h2>
+              </div>
+              <div>
+                  <h1>내일 급식은 뭘까?</h1>
+                  <h2>{data[2]}</h2>
+              </div>
+          </div>
         </div>
     )
 }
 
-Home.getInitialProps = async (ctx) => {
+Home.getInitialProps = async () => {
     const today = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${now.getFullYear()}&month=${now.getMonth() + 1}&date=${now.getDate()}`)).json()
     const _yesterday = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${yesterday.getFullYear()}&month=${yesterday.getMonth() + 1}&date=${yesterday.getDate()}`)).json()
     const _tomorrow = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${tomorrow.getFullYear()}&month=${tomorrow.getMonth() + 1}&date=${tomorrow.getDate()}`)).json()

@@ -130,10 +130,10 @@ function Home({data}) {
             }</h1>
             <h1 className='text-2xl'>{messages}</h1>
             <h2 className='text-2xl'>{classmsg}</h2>
-            {/*<img src={'/img.png'} className='text-center' />*/}
             <TableContainer>
                 <table className="mx-auto">
                     <thead>
+                    <th style={{ borderLeft: 'solid 5px' }}>시간표</th>
                     <tr className="font-black">
                         <th>교시/요일</th>
                         <th>월</th>

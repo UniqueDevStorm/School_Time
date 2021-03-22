@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { Dropdown } from "semantic-ui-react";
+import { NextSeo } from "next-seo";
 
 const now = new Date();
 const yesterday = new Date();
@@ -45,9 +46,9 @@ export async function getServerSideProps(ctx) {
     const _yesterday = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${yesterday.getFullYear()}&month=${yesterday.getMonth() + 1}&date=${yesterday.getDate()}&allergy=hidden`)).json()
     const _tomorrow = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${tomorrow.getFullYear()}&month=${tomorrow.getMonth() + 1}&date=${tomorrow.getDate()}&allergy=hidden`)).json()
     let data = []
-    data.push(_yesterday.menu[0].lunch)
-    data.push(today.menu[0].lunch)
-    data.push(_tomorrow.menu[0].lunch)
+    data.push(_yesterday.menu[0]['lunch'])
+    data.push(today.menu[0]['lunch'])
+    data.push(_tomorrow.menu[0]['lunch'])
     return {
         props: {
             data: data
@@ -55,10 +56,15 @@ export async function getServerSideProps(ctx) {
     }
 }
 
-const option = [
-    { key: 1, text: '2반', value: 'second' },
-    { key: 2, text: '6반', value: 'sixth' }
-]
+const option = {
+    seokgwan: [
+        { key: 1, text: '2반', value: 'second' },
+        { key: 2, text: '6반', value: 'sixth' }
+    ],
+    byeolgram: [
+        { key: 1, text: '10반', value: 'tenth' }
+    ]
+}
 
 const ms = {
     seokgwan : {
@@ -220,10 +226,15 @@ const ms = {
     }
 }
 
+const msoption = [
+    { key: 1, text: '석관중학교', value: 'seokgwan' },
+    { key: 2, text: '별가람중학교', value: 'byeolgram' }
+]
+
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = { date: new Date(), messages: '', classmsg: '', classlink: '', selected: 'second', msname: 'seokgwan' };
+        this.state = { date: new Date(), messages: '', classmsg: '', classlink: '', classnm: 'second', msname: 'seokgwan', options: option.seokgwan };
     }
     componentDidMount() {
         this.timerID = setInterval(
@@ -347,7 +358,18 @@ class Home extends Component {
                 </h1>
                 <h1 className='text-2xl'>{this.state.messages}</h1>
                 <h2 className='text-2xl'>{(this.state.classmsg.length === 0) ? (this.state.date.getHours() >= 15 ? '' : '현재 줌 수업은 없습니다.') : <a href={this.state.classlink}>{this.state.classmsg}</a>}</h2>
-                <Dropdown options={option} key={option} selection defaultValue={option[0].value} onChange={(e, data) => this.setState({ selected: data.value })} />
+                <div>
+                    <Dropdown options={msoption} defaultValue={msoption[0].value} selection onChange={(e, data) => {
+                        if (data.value === 'seokgwan') {
+                            this.setState({ msname: 'seokgwan', classnm: 'second', options: option.seokgwan })
+                        } else if (data.value === 'byeolgram') {
+                            this.setState({ msname: 'byeolgram', classnm: 'tenth', options: option.byeolgram })
+                        }
+                    }} />
+                </div>
+                <div>
+                    <Dropdown options={this.state.options} selection defaultValue={this.state.options[0].value} onChange={(e, data) => this.setState({ classnm: data.value })} />
+                </div>
                 <table className='mx-auto my-10'>
                     <thead>
                     <tr className="font-black">
@@ -362,31 +384,31 @@ class Home extends Component {
                     <tbody>
                     <tr>
                         <th>1교시</th>
-                        {ms[this.state.msname][this.state.selected][0].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.classnm][0].map(r => <td>{r}</td>)}
                     </tr>
                     <tr>
                         <th>2교시</th>
-                        {ms[this.state.msname][this.state.selected][1].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.classnm][1].map(r => <td>{r}</td>)}
                     </tr>
                     <tr>
                         <th>3교시</th>
-                        {ms[this.state.msname][this.state.selected][2].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.classnm][2].map(r => <td>{r}</td>)}
                     </tr>
                     <tr>
                         <th>4교시</th>
-                        {ms[this.state.msname][this.state.selected][3].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.classnm][3].map(r => <td>{r}</td>)}
                     </tr>
                     <tr>
                         <th>5교시</th>
-                        {ms[this.state.msname][this.state.selected][4].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.classnm][4].map(r => <td>{r}</td>)}
                     </tr>
                     <tr>
                         <th>6교시</th>
-                        {ms[this.state.msname][this.state.selected][5].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.classnm][5].map(r => <td>{r}</td>)}
                     </tr>
                     <tr>
                         <th>7교시</th>
-                        {ms[this.state.msname][this.state.selected][6].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.classnm][6].map(r => <td>{r}</td>)}
                     </tr>
                     </tbody>
                 </table>

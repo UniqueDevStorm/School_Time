@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { Dropdown } from "semantic-ui-react";
 
 const now = new Date();
 const yesterday = new Date();
@@ -54,10 +55,70 @@ export async function getServerSideProps(ctx) {
     }
 }
 
+const option = [
+    { key: 1, text: '2반', value: 'second' },
+    { key: 2, text: '6반', value: 'sixth' }
+]
+
+const lesson = {
+    second: [
+        [
+            '역사',
+            '역사',
+            '영어B',
+            '영어B',
+            '스클'
+        ],
+        [
+            '기술',
+            '국어',
+            '음악',
+            '과학B',
+            '영어A'
+        ],
+        [
+            '사회',
+            '수학',
+            '국어',
+            '스클',
+            '가정'
+        ],
+        [
+            '음악',
+            '과학B',
+            '수학',
+            '사회',
+            '체육'
+        ],
+        [
+            '영어A',
+            '기술',
+            '과학A',
+            '미술',
+            '수학'
+        ],
+        [
+            '국어',
+            '미술',
+            '체육',
+            '국어',
+            '과학A'
+        ],
+        [
+            '',
+            '사회',
+            '',
+            '가정',
+            ''
+        ]
+    ]
+
+}
+
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = { date: new Date(), messages: '', classmsg: '', classlink: '' };
+        this.state = { date: new Date(), messages: '', classmsg: '', classlink: '', selected: 'second' };
     }
     componentDidMount() {
         this.timerID = setInterval(
@@ -180,7 +241,8 @@ class Home extends Component {
                     }
                 </h1>
                 <h1 className='text-2xl'>{this.state.messages}</h1>
-                <h2 className='text-2xl'>{(this.state.classmsg.length === 0) ? '현재 줌 수업은 없습니다.' : <a href={this.state.classlink}>{this.state.classmsg}</a>}</h2>
+                <h2 className='text-2xl'>{(this.state.classmsg.length === 0) ? (this.state.date.getHours() >= 15 ? '' : '현재 줌 수업은 없습니다.') : <a href={this.state.classlink}>{this.state.classmsg}</a>}</h2>
+                <Dropdown options={option} key={option} selection defaultValue={option[0].value} onChange={(e, data) => this.setState({ selected: data.value })} />
                 <table className='mx-auto'>
                     <thead>
                     <tr className="font-black">
@@ -195,59 +257,31 @@ class Home extends Component {
                     <tbody>
                     <tr>
                         <th>1교시</th>
-                        <td>역사</td>
-                        <td>역사</td>
-                        <td>영어B</td>
-                        <td>영어B</td>
-                        <td>스클</td>
+                        {lesson[this.state.selected][0].map(r => <td>{r}</td>)}
                     </tr>
                     <tr>
                         <th>2교시</th>
-                        <td>기술</td>
-                        <td>국어</td>
-                        <td>음악</td>
-                        <td>과학B</td>
-                        <td>영어A</td>
+                        {lesson[this.state.selected][1].map(r => <td>{r}</td>)}
                     </tr>
                     <tr>
                         <th>3교시</th>
-                        <td>사회</td>
-                        <td>수학</td>
-                        <td>국어</td>
-                        <td>스클</td>
-                        <td>가정</td>
+                        {lesson[this.state.selected][2].map(r => <td>{r}</td>)}
                     </tr>
                     <tr>
                         <th>4교시</th>
-                        <td>음악</td>
-                        <td>과학B</td>
-                        <td>수학</td>
-                        <td>사회</td>
-                        <td>체육</td>
+                        {lesson[this.state.selected][3].map(r => <td>{r}</td>)}
                     </tr>
                     <tr>
                         <th>5교시</th>
-                        <td>영어A</td>
-                        <td>기술</td>
-                        <td>과학A</td>
-                        <td>미술</td>
-                        <td>수학</td>
+                        {lesson[this.state.selected][4].map(r => <td>{r}</td>)}
                     </tr>
                     <tr>
                         <th>6교시</th>
-                        <td>국어</td>
-                        <td>미술</td>
-                        <td>체육</td>
-                        <td>국어</td>
-                        <td>과학A</td>
+                        {lesson[this.state.selected][5].map(r => <td>{r}</td>)}
                     </tr>
                     <tr>
                         <th>7교시</th>
-                        <td />
-                        <td>사회</td>
-                        <td />
-                        <td>가정</td>
-                        <td />
+                        {lesson[this.state.selected][6].map(r => <td>{r}</td>)}
                     </tr>
                     </tbody>
                 </table>

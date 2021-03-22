@@ -12,13 +12,6 @@ const minutes = now.getMinutes();
 const day = now.getDay()
 const currentDay = days[day];
 
-const TableContainer = styled.div`
-  th, td {
-    padding: 12px;
-    font-size: 24px;
-  }
-`
-
 
 let messages;
 let classmsg = '';
@@ -167,79 +160,77 @@ class Home extends Component {
                 </h1>
                 <h1 className='text-2xl'>{messages}</h1>
                 <h2 className='text-2xl'>{(classmsg.length === 0) ? '현재 줌 수업은 없습니다.' : <a href={classlink}>{classmsg}</a>}</h2>
-                <TableContainer>
-                    <table className="mx-auto">
-                        <thead>
-                        <th style={{ borderLeft: 'solid 5px' }}>시간표</th>
-                        <tr className="font-black">
-                            <th>교시/요일</th>
-                            <th>월</th>
-                            <th>화</th>
-                            <th>수</th>
-                            <th>목</th>
-                            <th>금</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <th>1교시</th>
-                            <td>역사</td>
-                            <td>역사</td>
-                            <td>영어B</td>
-                            <td>영어B</td>
-                            <td>스클</td>
-                        </tr>
-                        <tr>
-                            <th>2교시</th>
-                            <td>기술</td>
-                            <td>국어</td>
-                            <td>음악</td>
-                            <td>과학B</td>
-                            <td>영어A</td>
-                        </tr>
-                        <tr>
-                            <th>3교시</th>
-                            <td>사회</td>
-                            <td>수학</td>
-                            <td>국어</td>
-                            <td>스클</td>
-                            <td>가정</td>
-                        </tr>
-                        <tr>
-                            <th>4교시</th>
-                            <td>음악</td>
-                            <td>과학B</td>
-                            <td>수학</td>
-                            <td>사회</td>
-                            <td>체육</td>
-                        </tr>
-                        <tr>
-                            <th>5교시</th>
-                            <td>영어A</td>
-                            <td>기술</td>
-                            <td>과학A</td>
-                            <td>미술</td>
-                            <td>수학</td>
-                        </tr>
-                        <tr>
-                            <th>6교시</th>
-                            <td>국어</td>
-                            <td>미술</td>
-                            <td>체육</td>
-                            <td>국어</td>
-                            <td>과학A</td>
-                        </tr>
-                        <tr>
-                            <th>7교시</th>
-                            <td />
-                            <td>사회</td>
-                            <td />
-                            <td>가정</td>
-                            <td />
-                        </tr>
-                        </tbody>
-                    </table>
-                </TableContainer>
+                <table className="mx-auto">
+                    <thead>
+                    <th style={{ borderLeft: 'solid 5px' }} >시간표</th>
+                    <tr className="font-black">
+                        <th>교시/요일</th>
+                        <th>월</th>
+                        <th>화</th>
+                        <th>수</th>
+                        <th>목</th>
+                        <th>금</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th>1교시</th>
+                        <td>역사</td>
+                        <td>역사</td>
+                        <td>영어B</td>
+                        <td>영어B</td>
+                        <td>스클</td>
+                    </tr>
+                    <tr>
+                        <th>2교시</th>
+                        <td>기술</td>
+                        <td>국어</td>
+                        <td>음악</td>
+                        <td>과학B</td>
+                        <td>영어A</td>
+                    </tr>
+                    <tr>
+                        <th>3교시</th>
+                        <td>사회</td>
+                        <td>수학</td>
+                        <td>국어</td>
+                        <td>스클</td>
+                        <td>가정</td>
+                    </tr>
+                    <tr>
+                        <th>4교시</th>
+                        <td>음악</td>
+                        <td>과학B</td>
+                        <td>수학</td>
+                        <td>사회</td>
+                        <td>체육</td>
+                    </tr>
+                    <tr>
+                        <th>5교시</th>
+                        <td>영어A</td>
+                        <td>기술</td>
+                        <td>과학A</td>
+                        <td>미술</td>
+                        <td>수학</td>
+                    </tr>
+                    <tr>
+                        <th>6교시</th>
+                        <td>국어</td>
+                        <td>미술</td>
+                        <td>체육</td>
+                        <td>국어</td>
+                        <td>과학A</td>
+                    </tr>
+                    <tr>
+                        <th>7교시</th>
+                        <td />
+                        <td>사회</td>
+                        <td />
+                        <td>가정</td>
+                        <td />
+                    </tr>
+                    </tbody>
+                </table>
                 <div className='my-20 container mx-auto gap-2 flex-col lg:flex-row flex'>
                     <div className="bg-black rounded-xl p-6 text-white lg:w-1/3">
                         <h1 className="text-3xl mb-4">어제 급식이 뭐였지?</h1>

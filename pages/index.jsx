@@ -1,11 +1,38 @@
-import styled from 'styled-components';
 import { Component } from "react";
 
 const now = new Date();
 const yesterday = new Date();
 const tomorrow = new Date();
+const month = {
+    yesterday: yesterday.getMonth().toString(),
+    today: now.getMonth().toString(),
+    tomorrow: tomorrow.getMonth().toString()
+}
+const date = {
+    yesterday: yesterday.getDate() + 1,
+    today: now.getDate() + 1,
+    tomorrow: tomorrow.getDate() + 1
+}
 yesterday.setDate(now.getDate() - 1);
 tomorrow.setDate(now.getDate() + 1);
+if (yesterday.getMonth().toString().length === 1) {
+    month.yesterday = `0${yesterday.getMonth() + 1}`
+}
+if (now.getMonth().toString().length === 1) {
+    month.today = `0${now.getMonth() + 1}`
+}
+if (tomorrow.getMonth().toString().length === 1) {
+    month.tomorrow = `0${tomorrow.getMonth() + 1}`
+}
+if (yesterday.getDate().toString().length === 1) {
+    date.yesterday = `0${yesterday.getDate()}`
+}
+if (now.getDate().toString().length === 1) {
+    date.today = `0${yesterday.getDate()}`
+}
+if (tomorrow.getDate().toString().length === 1) {
+    date.tomorrow = `0${tomorrow.getDate()}`
+}
 const days = ["일", "월", "화", "수", "목", "금", "토"];
 let hours = now.getHours();
 const minutes = now.getMinutes();

@@ -59,6 +59,7 @@ if (now.getDay() === 6 || now.getDay() === 0) {
         messages = '3교시 하자!'
         if (day === 1) {
             classmsg = '사회 수업 들어가기'
+            classlink = 'https://us02web.zoom.us/j/81867365147'
         }
         if (day === 3) {
             classmsg = '국어 수업 들어가기'
@@ -75,6 +76,7 @@ if (now.getDay() === 6 || now.getDay() === 0) {
         }
         if (day === 4) {
             classmsg = '사회 수업 들어가기'
+            classlink = 'https://us02web.zoom.us/j/81867365147'
         }
     }
     if (hours === 12 && minutes >= 5 || hours === 12 && minutes < 55) {
@@ -104,6 +106,7 @@ if (now.getDay() === 6 || now.getDay() === 0) {
             messages = '7교시 하자!'
             if (day === 2) {
                 classmsg = '사회 수업 들어가기'
+                classlink = 'https://us02web.zoom.us/j/81867365147'
             }
         }
         if (hours === 15 && minutes >= 20 || hours === 23 && minutes < 59) {

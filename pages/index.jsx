@@ -41,21 +41,6 @@ const minutes = now.getMinutes();
 const day = now.getDay()
 const currentDay = days[day];
 
-export async function getServerSideProps(ctx) {
-    const today = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${now.getFullYear()}&month=${now.getMonth() + 1}&date=${now.getDate()}&allergy=hidden`)).json()
-    const _yesterday = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${yesterday.getFullYear()}&month=${yesterday.getMonth() + 1}&date=${yesterday.getDate()}&allergy=hidden`)).json()
-    const _tomorrow = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${tomorrow.getFullYear()}&month=${tomorrow.getMonth() + 1}&date=${tomorrow.getDate()}&allergy=hidden`)).json()
-    let data = []
-    data.push(_yesterday.menu[0]['lunch'])
-    data.push(today.menu[0]['lunch'])
-    data.push(_tomorrow.menu[0]['lunch'])
-    return {
-        props: {
-            data: data
-        }
-    }
-}
-
 const option = {
     seokgwan: [
         { key: 1, text: '2반', value: 'second' },
@@ -232,6 +217,19 @@ const msoption = [
 ]
 
 class Home extends Component {
+    static async getInitialProps() {
+        const today = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${now.getFullYear()}&month=${now.getMonth() + 1}&date=${now.getDate()}&allergy=hidden`)).json()
+        const _yesterday = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${yesterday.getFullYear()}&month=${yesterday.getMonth() + 1}&date=${yesterday.getDate()}&allergy=hidden`)).json()
+        const _tomorrow = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${tomorrow.getFullYear()}&month=${tomorrow.getMonth() + 1}&date=${tomorrow.getDate()}&allergy=hidden`)).json()
+        let data = []
+        data.push(_yesterday.menu[0]['lunch'])
+        data.push(today.menu[0]['lunch'])
+        data.push(_tomorrow.menu[0]['lunch'])
+        return {
+            data: data
+        }
+    }
+
     constructor(props) {
         super(props);
         this.state = { date: new Date(), messages: '', classmsg: '', classlink: '', classnm: 'second', msname: 'seokgwan', options: option.seokgwan };

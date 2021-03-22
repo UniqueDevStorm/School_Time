@@ -111,6 +111,57 @@ const lesson = {
             '가정',
             ''
         ]
+    ],
+    sixth: [
+        [
+            '기가',
+            '과학',
+            '음악',
+            '국어',
+            '국어'
+        ],
+        [
+            '음악',
+            '수학',
+            '기가',
+            '기가',
+            '스클'
+        ],
+        [
+            '미술',
+            '역사',
+            '영어',
+            '과학',
+            '과학'
+        ],
+        [
+            '사회',
+            '체육',
+            '미술',
+            '수학',
+            '과학'
+        ],
+        [
+            '영어',
+            '기가',
+            '사회',
+            '역사',
+            '체육'
+        ],
+        [
+            '국어',
+            '국어',
+            '수학',
+            '스클',
+            '사회'
+        ],
+        [
+            '',
+            '영어',
+            '',
+            '영어',
+            ''
+        ]
     ]
 
 }
@@ -231,7 +282,7 @@ class Home extends Component {
 
     render() {
         return (
-            <div className='text-center font-bold'>
+            <div className='text-center font-bold my-20'>
                 <h1 className='text-5xl my-10'>🧭학교 시간 알리미</h1>
                 <h3 className='text-1xl'>지금 시각</h3>
                 <h2 className='text-2xl'>{`${this.state.date.getMonth() + 1}월 ${this.state.date.getDate()}일 ${currentDay}요일`}</h2>
@@ -243,7 +294,7 @@ class Home extends Component {
                 <h1 className='text-2xl'>{this.state.messages}</h1>
                 <h2 className='text-2xl'>{(this.state.classmsg.length === 0) ? (this.state.date.getHours() >= 15 ? '' : '현재 줌 수업은 없습니다.') : <a href={this.state.classlink}>{this.state.classmsg}</a>}</h2>
                 <Dropdown options={option} key={option} selection defaultValue={option[0].value} onChange={(e, data) => this.setState({ selected: data.value })} />
-                <table className='mx-auto'>
+                <table className='mx-auto my-5'>
                     <thead>
                     <tr className="font-black">
                         <th>교시/요일</th>

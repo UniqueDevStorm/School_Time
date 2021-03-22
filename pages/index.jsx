@@ -60,116 +60,170 @@ const option = [
     { key: 2, text: '6반', value: 'sixth' }
 ]
 
-const lesson = {
-    second: [
-        [
-            '역사',
-            '역사',
-            '영어B',
-            '영어B',
-            '스클'
+const ms = {
+    seokgwan : {
+        second: [
+            [
+                '역사',
+                '역사',
+                '영어B',
+                '영어B',
+                '스클'
+            ],
+            [
+                '기술',
+                '국어',
+                '음악',
+                '과학B',
+                '영어A'
+            ],
+            [
+                '사회',
+                '수학',
+                '국어',
+                '스클',
+                '가정'
+            ],
+            [
+                '음악',
+                '과학B',
+                '수학',
+                '사회',
+                '체육'
+            ],
+            [
+                '영어A',
+                '기술',
+                '과학A',
+                '미술',
+                '수학'
+            ],
+            [
+                '국어',
+                '미술',
+                '체육',
+                '국어',
+                '과학A'
+            ],
+            [
+                '',
+                '사회',
+                '',
+                '가정',
+                ''
+            ]
         ],
-        [
-            '기술',
-            '국어',
-            '음악',
-            '과학B',
-            '영어A'
-        ],
-        [
-            '사회',
-            '수학',
-            '국어',
-            '스클',
-            '가정'
-        ],
-        [
-            '음악',
-            '과학B',
-            '수학',
-            '사회',
-            '체육'
-        ],
-        [
-            '영어A',
-            '기술',
-            '과학A',
-            '미술',
-            '수학'
-        ],
-        [
-            '국어',
-            '미술',
-            '체육',
-            '국어',
-            '과학A'
-        ],
-        [
-            '',
-            '사회',
-            '',
-            '가정',
-            ''
+        sixth: [
+            [
+                '기술',
+                '과학B',
+                '음악B',
+                '국어',
+                '국어'
+            ],
+            [
+                '음악',
+                '수학',
+                '기술',
+                '가정',
+                '스클'
+            ],
+            [
+                '미술',
+                '역사',
+                '영어A',
+                '과학A',
+                '과학B'
+            ],
+            [
+                '사회',
+                '체육',
+                '미술',
+                '수학',
+                '과학A'
+            ],
+            [
+                '영어B',
+                '가정',
+                '사회',
+                '역사',
+                '체육'
+            ],
+            [
+                '국어',
+                '국어',
+                '수학',
+                '스클',
+                '사회'
+            ],
+            [
+                '',
+                '영어B',
+                '',
+                '영어A',
+                ''
+            ]
         ]
-    ],
-    sixth: [
-        [
-            '기가',
-            '과학',
-            '음악',
-            '국어',
-            '국어'
-        ],
-        [
-            '음악',
-            '수학',
-            '기가',
-            '기가',
-            '스클'
-        ],
-        [
-            '미술',
-            '역사',
-            '영어',
-            '과학',
-            '과학'
-        ],
-        [
-            '사회',
-            '체육',
-            '미술',
-            '수학',
-            '과학'
-        ],
-        [
-            '영어',
-            '기가',
-            '사회',
-            '역사',
-            '체육'
-        ],
-        [
-            '국어',
-            '국어',
-            '수학',
-            '스클',
-            '사회'
-        ],
-        [
-            '',
-            '영어',
-            '',
-            '영어',
-            ''
+    },
+    byeolgram: {
+        tenth: [
+            [
+                '수학',
+                '미술',
+                '사회',
+                '국어',
+                '사회'
+            ],
+            [
+                '체육',
+                '미술',
+                '영어',
+                '역사',
+                '국어'
+            ],
+            [
+                '국어',
+                '중국어',
+                '과학',
+                '중국어',
+                '수학'
+            ],
+            [
+                '과학',
+                '과학',
+                '체육',
+                '영어',
+                '역사'
+            ],
+            [
+                '기가',
+                '영어',
+                '스클',
+                '기가',
+                '과학'
+            ],
+            [
+                '역사',
+                '국어',
+                '스클',
+                '수학',
+                '체육'
+            ],
+            [
+                '',
+                '',
+                '',
+                '음악',
+                '영어'
+            ]
         ]
-    ]
-
+    }
 }
 
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = { date: new Date(), messages: '', classmsg: '', classlink: '', selected: 'second' };
+        this.state = { date: new Date(), messages: '', classmsg: '', classlink: '', selected: 'second', msname: 'seokgwan' };
     }
     componentDidMount() {
         this.timerID = setInterval(
@@ -294,7 +348,7 @@ class Home extends Component {
                 <h1 className='text-2xl'>{this.state.messages}</h1>
                 <h2 className='text-2xl'>{(this.state.classmsg.length === 0) ? (this.state.date.getHours() >= 15 ? '' : '현재 줌 수업은 없습니다.') : <a href={this.state.classlink}>{this.state.classmsg}</a>}</h2>
                 <Dropdown options={option} key={option} selection defaultValue={option[0].value} onChange={(e, data) => this.setState({ selected: data.value })} />
-                <table className='mx-auto my-5'>
+                <table className='mx-auto my-10'>
                     <thead>
                     <tr className="font-black">
                         <th>교시/요일</th>
@@ -308,31 +362,31 @@ class Home extends Component {
                     <tbody>
                     <tr>
                         <th>1교시</th>
-                        {lesson[this.state.selected][0].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.selected][0].map(r => <td>{r}</td>)}
                     </tr>
                     <tr>
                         <th>2교시</th>
-                        {lesson[this.state.selected][1].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.selected][1].map(r => <td>{r}</td>)}
                     </tr>
                     <tr>
                         <th>3교시</th>
-                        {lesson[this.state.selected][2].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.selected][2].map(r => <td>{r}</td>)}
                     </tr>
                     <tr>
                         <th>4교시</th>
-                        {lesson[this.state.selected][3].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.selected][3].map(r => <td>{r}</td>)}
                     </tr>
                     <tr>
                         <th>5교시</th>
-                        {lesson[this.state.selected][4].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.selected][4].map(r => <td>{r}</td>)}
                     </tr>
                     <tr>
                         <th>6교시</th>
-                        {lesson[this.state.selected][5].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.selected][5].map(r => <td>{r}</td>)}
                     </tr>
                     <tr>
                         <th>7교시</th>
-                        {lesson[this.state.selected][6].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.selected][6].map(r => <td>{r}</td>)}
                     </tr>
                     </tbody>
                 </table>

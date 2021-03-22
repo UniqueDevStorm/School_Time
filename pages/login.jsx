@@ -1,8 +1,11 @@
 import { TextField, Button } from "@material-ui/core";
 import { withSnackbar, useSnackbar } from "notistack";
+import { useState, useRef } from "react";
 
 function login() {
+    const inputRef = useRef();
     const { enqueueSnackbar } = useSnackbar();
+    const [text, setText] = useState('');
     const handleClick = (message) => {
         enqueueSnackbar(message, {
             variant: 'error'
@@ -11,14 +14,15 @@ function login() {
     return (
         <div className='text-center my-10'>
             <div>
-                <TextField label='학번' id='classnum' />
+                <TextField label='학번' id='classnum' onChange={(e) => {
+                    setText(e.target.value);
+                }} ref={inputRef} />
             </div>
             <div className='my-5'>
                 <Button variant="contained" color='primary' onClick={() => {
-                    const value = document.getElementById('classnum').value;
-                    if (value.length === 5) {
-                        if (value[0] === '3') {
-                            if (value[2] === '2') {
+                    if (text.length === 5) {
+                        if (text[0] === '3') {
+                            if (text[2] === '2') {
                                 fetch('/api/check', {
                                     method: 'POST'
                                 }).then()

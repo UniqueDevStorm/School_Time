@@ -348,6 +348,7 @@ class Home extends Component {
     render() {
         return (
             <div className='text-center font-bold my-20'>
+                <NextSeo title='학교 시간 알리미' description='Creator : 송찬우' />
                 <h1 className='text-5xl my-10'>🧭학교 시간 알리미</h1>
                 <h3 className='text-1xl'>지금 시각</h3>
                 <h2 className='text-2xl'>{`${this.state.date.getMonth() + 1}월 ${this.state.date.getDate()}일 ${currentDay}요일`}</h2>

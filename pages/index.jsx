@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import jwt from 'jsonwebtoken';
 import * as cookie from 'cookie';
 import { Component } from "react";
-import ClassInfo from "../components/ClassInfo";
 
 const now = new Date();
 const yesterday = new Date();
@@ -175,7 +174,7 @@ class Home extends Component {
                     }
                 </h1>
                 <h1 className='text-2xl'>{messages}</h1>
-                <h2 className='text-2xl'>{(classmsg.length === 0) ? '현재 줌 수업은 없습니다.' : <ClassInfo />}</h2>
+                <h2 className='text-2xl'>{(classmsg.length === 0) ? '현재 줌 수업은 없습니다.' : <a href={classlink}>{classmsg}</a>}</h2>
                 <TableContainer>
                     <table className="mx-auto">
                         <thead>

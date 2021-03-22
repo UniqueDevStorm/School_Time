@@ -160,9 +160,8 @@ class Home extends Component {
                 </h1>
                 <h1 className='text-2xl'>{messages}</h1>
                 <h2 className='text-2xl'>{(classmsg.length === 0) ? '현재 줌 수업은 없습니다.' : <a href={classlink}>{classmsg}</a>}</h2>
-                <table className="mx-auto">
+                <table className='mx-auto'>
                     <thead>
-                    <th style={{ borderLeft: 'solid 5px' }} >시간표</th>
                     <tr className="font-black">
                         <th>교시/요일</th>
                         <th>월</th>

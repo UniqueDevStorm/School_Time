@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import jwt from 'jsonwebtoken';
-import * as cookie from 'cookie';
 import { Component } from "react";
 
 const now = new Date();
@@ -127,18 +125,9 @@ export async function getServerSideProps(ctx) {
     data.push(_yesterday.menu[0].lunch)
     data.push(today.menu[0].lunch)
     data.push(_tomorrow.menu[0].lunch)
-    let key = null;
-    try {
-        const cookies = cookie.parse(ctx.req.headers.cookie);
-        const user = cookies.token;
-        key = jwt.verify(user, 'seokgwanms');
-    } catch {
-        key = null
-    }
     return {
         props: {
-            data: data,
-            token: key
+            data: data
         }
     }
 }

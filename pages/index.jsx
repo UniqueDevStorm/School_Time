@@ -237,7 +237,7 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { date: new Date(), messages: '', classmsg: '', classlink: '', classnm: 'second', msname: 'seokgwan', options: option.seokgwan };
+        this.state = { date: new Date(), messages: '', classmsg: '', classnm: 'second', msname: 'seokgwan', options: option.seokgwan };
     }
     componentDidMount() {
         this.timerID = setInterval(
@@ -265,77 +265,28 @@ class Home extends Component {
             }
             if (hours === 8 && minutes >= 50 || hours === 9 && minutes < 35) {
                 this.setState({ messages: '1교시 하자!' })
-                if (day === 1 || day === 2) {
-                    this.setState({ classmsg: '역사 수업 들어가기' })
-                    this.setState({ classlink: 'https://zoom.us/j/95518576742'  })
-                }
-                if (day === 3 || day === 4) {
-                    this.setState({ classmsg: '영어B 수업 들어가기' })
-                }
             }
             if (hours === 9 && minutes >= 35 || hours === 10 && minutes < 25) {
                 this.setState({ messages: '2교시 하자!' })
-                if (day === 2) {
-                    this.setState({ classmsg: '국어 수업 들어가기' })
-                    this.setState({ classlink: 'https://zoom.us/j/7183222256' })
-                }
-                if (day === 4) {
-                    this.setState({ classmsg: '과학B 수업 들어가기' })
-                }
             }
             if (hours === 10 && minutes >= 25 || hours === 11 && minutes < 15) {
                 this.setState({ messages: '3교시 하자!' })
-                if (day === 1) {
-                    this.setState({ classmsg: '사회 수업 들어가기' })
-                    this.setState({ classlink: 'https://us02web.zoom.us/j/81867365147' })
-                }
-                if (day === 3) {
-                    this.setState({ classmsg: '국어 수업 들어가기' })
-                    this.setState({ classlink: 'https://zoom.us/j/7183222256' })
-                }
             }
             if (hours === 11 && minutes >= 15 || hours === 12 && minutes < 5) {
                 this.setState({ messages: '4교시 하자!' })
-                if (day === 2) {
-                    this.setState({ classmsg: '과학B 수업 들어가기' })
-                }
-                if (day === 3) {
-                    this.setState({ classmsg: '수학 수업 들어가기' })
-                }
-                if (day === 4) {
-                    this.setState({ classmsg: '사회 수업 들어가기' })
-                    this.setState({ classlink: 'https://us02web.zoom.us/j/81867365147' })
-                }
             }
             if (hours === 12 && minutes >= 5 || hours === 12 && minutes < 55) {
                 this.setState({ messages: '즐거운 점심시간!' })
             }
             if (hours === 12 && minutes >= 55 || hours === 13 && minutes < 40) {
                 this.setState({ messages: '5교시 하자!' })
-                if (day === 3) {
-                    this.setState({ classmsg: '과학A 수업 들어가기' })
-                }
-                if (day === 5) {
-                    this.setState({ classmsg: '수학 수업 들어가기' })
-                }
             }
             if (hours === 13 && minutes >= 40 || hours === 14 && minutes < 30) {
                 this.setState({ messages: '6교시 하자!' })
-                if (day === 1 || day === 4) {
-                    this.setState({ classmsg: '국어 수업 들어가기' })
-                    this.setState({ classlink: 'https://zoom.us/j/7183222256' })
-                }
-                if (day === 5) {
-                    this.setState({ classmsg: '과학A 수업 들어가기' })
-                }
             }
             if (now.getDay() === 2 || now.getDay() === 4) {
                 if (hours === 14 && minutes >= 35 || hours === 15 && minutes < 20) {
                     this.setState({ messages: '7교시 하자!' })
-                    if (day === 2) {
-                        this.setState({ classmsg: '사회 수업 들어가기' })
-                        this.setState({ classlink: 'https://us02web.zoom.us/j/81867365147' })
-                    }
                 }
                 if (hours === 15 && minutes >= 20 || hours === 23 && minutes < 59) {
                     this.setState({ messages: '오늘 하루 고생했어요!' })
@@ -361,8 +312,8 @@ class Home extends Component {
                     }
                 </h1>
                 <h1 className='text-2xl'>{this.state.messages}</h1>
-                <h2 className='text-2xl'>{(this.state.classmsg.length === 0) ? (this.state.date.getHours() >= 15 ? '' : '현재 줌 수업은 없습니다.') : <a href={this.state.classlink}>{this.state.classmsg}</a>}</h2>
-                <div>
+                <h2 className='text-2xl'>{(this.state.classmsg.length === 0) ? (this.state.date.getHours() >= 15 ? '' : '현재 줌 수업은 없습니다.') : this.state.classmsg}</h2>
+                <div className>
                     <Dropdown options={msoption} defaultValue={msoption[0].value} selection onChange={(e, data) => {
                         if (data.value === 'seokgwan') {
                             this.setState({ msname: 'seokgwan', classnm: 'second', options: option.seokgwan })

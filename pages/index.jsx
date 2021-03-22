@@ -218,15 +218,20 @@ const msoption = [
 
 class Home extends Component {
     static async getInitialProps() {
-        const today = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${now.getFullYear()}&month=${now.getMonth() + 1}&date=${now.getDate()}&allergy=hidden`)).json()
-        const _yesterday = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${yesterday.getFullYear()}&month=${yesterday.getMonth() + 1}&date=${yesterday.getDate()}&allergy=hidden`)).json()
-        const _tomorrow = await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${tomorrow.getFullYear()}&month=${tomorrow.getMonth() + 1}&date=${tomorrow.getDate()}&allergy=hidden`)).json()
-        let data = []
-        data.push(_yesterday.menu[0]['lunch'])
-        data.push(today.menu[0]['lunch'])
-        data.push(_tomorrow.menu[0]['lunch'])
+        const datas = {
+            seokgwan: {
+                today : await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${now.getFullYear()}&month=${now.getMonth() + 1}&date=${now.getDate()}&allergy=hidden`)).json(),
+                yesterday : await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${yesterday.getFullYear()}&month=${yesterday.getMonth() + 1}&date=${yesterday.getDate()}&allergy=hidden`)).json(),
+                tomorrow : await (await fetch(`https://schoolmenukr.ml/api/middle/B100002273?year=${tomorrow.getFullYear()}&month=${tomorrow.getMonth() + 1}&date=${tomorrow.getDate()}&allergy=hidden`)).json()
+            },
+            byeolgram: {
+                today : await (await fetch(`https://schoolmenukr.ml/api/middle/J100005779?year=${now.getFullYear()}&month=${now.getMonth() + 1}&date=${now.getDate()}&allergy=hidden`)).json(),
+                yesterday : await (await fetch(`https://schoolmenukr.ml/api/middle/J100005779?year=${yesterday.getFullYear()}&month=${yesterday.getMonth() + 1}&date=${yesterday.getDate()}&allergy=hidden`)).json(),
+                tomorrow : await (await fetch(`https://schoolmenukr.ml/api/middle/J100005779?year=${tomorrow.getFullYear()}&month=${tomorrow.getMonth() + 1}&date=${tomorrow.getDate()}&allergy=hidden`)).json()
+            }
+        }
         return {
-            data: data
+            data: datas
         }
     }
 
@@ -414,15 +419,15 @@ class Home extends Component {
                 <div className='my-20 container mx-auto gap-2 flex-col lg:flex-row flex'>
                     <div className="bg-black rounded-xl p-6 text-white lg:w-1/3">
                         <h1 className="text-3xl mb-4">어제 급식이 뭐였지?</h1>
-                        <p className="text-xl">{`${(this.props.data[0].length === 0) ? '어제는 급식이 없었어요!' : this.props.data[0].join(', ')}`}</p>
+                        <p className="text-xl">{`${(this.props.data[this.state.msname]['yesterday']['menu'][0].length === 0) ? '어제는 급식이 없었어요!' : this.props.data[this.state.msname]['yesterday']['menu'][0]['lunch'].join(', ')}`}</p>
                     </div>
                     <div className="bg-black rounded-xl p-6 text-white lg:w-1/3">
                         <h1 className="text-3xl mb-4">오늘 급식은 뭐야?!</h1>
-                        <p className="text-xl">{`${(this.props.data[1].length === 0) ? '오늘은 급식이 없어요!' : this.props.data[1].join(', ')}`}</p>
+                        <p className="text-xl">{`${(this.props.data[this.state.msname]['today']['menu'][0].length === 0) ? '오늘은 급식이 없어요!' : this.props.data[this.state.msname]['today']['menu'][0]['lunch'].join(', ')}`}</p>
                     </div>
                     <div className="bg-black rounded-xl p-6 text-white lg:w-1/3">
                         <h1 className="text-3xl mb-4">내일 급식은 뭘까?</h1>
-                        <p className="text-xl">{`${(this.props.data[2].length === 0) ? '내일은 급식이 없어요!' : this.props.data[2].join(', ')}`}</p>
+                        <p className="text-xl">{`${(this.props.data[this.state.msname]['tomorrow']['menu'][0].length === 0) ? '내일은 급식이 없어요!' : this.props.data[this.state.msname]['tomorrow']['menu'][0]['lunch'].join(', ')}`}</p>
                     </div>
                 </div>
             </div>

@@ -237,7 +237,7 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { date: new Date(), messages: '', classmsg: '', classnm: 'second', msname: 'seokgwan', options: option.seokgwan };
+        this.state = { date: new Date(), messages: '', classnm: 'second', msname: 'seokgwan', options: option.seokgwan };
     }
     componentDidMount() {
         this.timerID = setInterval(
@@ -312,7 +312,6 @@ class Home extends Component {
                     }
                 </h1>
                 <h1 className='text-2xl'>{this.state.messages}</h1>
-                <h2 className='text-2xl'>{(this.state.classmsg.length === 0) ? (this.state.date.getHours() >= 15 ? '' : '현재 줌 수업은 없습니다.') : this.state.classmsg}</h2>
                 <div className>
                     <Dropdown options={msoption} defaultValue={msoption[0].value} selection onChange={(e, data) => {
                         if (data.value === 'seokgwan') {

@@ -289,11 +289,52 @@ class Home extends Component {
                     if (this.state.date.getHours() === 14 && this.state.date.getMinutes() >= 35 || this.state.date.getHours() === 15 && this.state.date.getMinutes() < 20) {
                         this.setState({ messages: '7교시 하자!', classmsg: ms['seokgwan'][this.state.classnm][6][this.state.date.getDay() - 1] })
                     }
-                    if (this.state.date.getHours() === 15 && this.state.getMinutes() >= 20 || this.state.date.getHours() === 23 && this.state.date.getMinutes() < 59) {
+                    if (this.state.date.getHours() === 15 && this.state.date.getMinutes() >= 20 || this.state.date.getHours() === 23 && this.state.date.getMinutes() < 59) {
                         this.setState({ messages: '오늘 하루 고생했어요!' })
                     }
                 } else {
                     if (this.state.date.getHours() === 14 && this.state.getMinutes() >= 30 || this.state.date.getHours() >= 15) {
+                        this.setState({ messages: '오늘 하루 고생했어요!' })
+                    }
+                }
+            }
+            if (this.state.classnm === 'byeolgram') {
+                if (this.state.date.getHours() < 8 || this.state.date.getHours() === 8 && this.state.date.getMinutes() < 30 ) {
+                    this.setState({ messages: '좋은 아침!' })
+                }
+                if (this.state.date.getHours() === 8 && this.state.date.getMinutes() >= 30 || this.state.date.getHours() === 9 && this.state.date.getMinutes() < 10) {
+                    this.setState({ messages: '조회 시간!' })
+                }
+                if (this.state.date.getHours() === 9 && this.state.date.getMinutes() >= 10 || this.state.date.getHours() === 9 && this.state.date.getMinutes() < 55) {
+                    this.setState({ messages: '1교시 하자!', classmsg: ms['byeolgram'][this.state.classnm][0][this.state.date.getDay() - 1] })
+                }
+                if (this.state.date.getHours() === 9 && this.state.date.getMinutes() >= 55 || this.state.date.getHours() === 10 && this.state.date.getMinutes() < 50) {
+                    this.setState({ messages: '2교시 하자!', classmsg: ms['byeolgram'][this.state.classnm][1][this.state.date.getDay() - 1] })
+                }
+                if (this.state.date.getHours() === 10 && this.state.date.getMinutes() >= 50 || this.state.date.getHours() === 11 && this.state.date.getMinutes() < 45) {
+                    this.setState({ messages: '3교시 하자!', classmsg: ms['byeolgram'][this.state.classnm][2][this.state.date.getDay() - 1] })
+                }
+                if (this.state.date.getHours() === 11 && this.state.date.getMinutes() >= 45 || this.state.date.getHours() === 12 && this.state.date.getMinutes() < 35) {
+                    this.setState({ messages: '4교시 하자!', classmsg: ms['byeolgram'][this.state.classnm][3][this.state.date.getDay() - 1] })
+                }
+                if (this.state.date.getHours() === 12 && this.state.date.getMinutes() >= 35 || this.state.date.getHours() === 13 && this.state.date.getMinutes() < 20) {
+                    this.setState({ messages: '즐거운 점심시간!' })
+                }
+                if (this.state.date.getHours() === 13 && this.state.date.getMinutes() >= 20 || this.state.date.getHours() === 14 && this.state.date.getMinutes() < 15) {
+                    this.setState({ messages: '5교시 하자!', classmsg: ms['byeolgram'][this.state.classnm][4][this.state.date.getDay() - 1] })
+                }
+                if (this.state.date.getHours() === 14 && this.state.date.getMinutes() >= 15 || this.state.date.getHours() === 15 && this.state.date.getMinutes() < 10) {
+                    this.setState({ messages: '6교시 하자!', classmsg: ms['byeolgram'][this.state.classnm][5][this.state.date.getDay() - 1] })
+                }
+                if (this.state.date.getDay() === 4 || this.state.date.getDay() === 5) {
+                    if (this.state.date.getHours() === 15 && this.state.date.getMinutes() >= 10 || this.state.date.getHours() === 16 && this.state.date.getMinutes() < 5) {
+                        this.setState({ messages: '7교시 하자!', classmsg: ms['byeolgram'][this.state.classnm][6][this.state.date.getDay() - 1] })
+                    }
+                    if (this.state.date.getHours() === 16 && this.state.date.getMinutes() >= 5 || this.state.date.getHours() > 16) {
+                        this.setState({ messages: '오늘 하루 고생했어요!' })
+                    }
+                } else {
+                    if (this.state.date.getHours() === 15 && this.state.date.getMinutes() >= 10 || this.state.date.getHours() > 15) {
                         this.setState({ messages: '오늘 하루 고생했어요!' })
                     }
                 }
@@ -314,7 +355,7 @@ class Home extends Component {
                     }
                 </h1>
                 <h1 className='text-2xl'>{this.state.messages}</h1>
-                <h2 className='text-2xl'>{`${this.state.classmsg} 수업 하자!`}</h2>
+                <h2 className='text-2xl'>{(this.state.classmsg.length === 0) ? '' : `${this.state.classmsg} 수업 하자!`}</h2>
                 <div>
                     <Dropdown options={msoption} defaultValue={msoption[0].value} selection onChange={(e, data) => {
                         if (data.value === 'seokgwan') {

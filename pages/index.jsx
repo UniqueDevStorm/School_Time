@@ -237,7 +237,7 @@ class Home extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { date: new Date(), messages: '', classnm: 'second', msname: 'seokgwan', options: option.seokgwan };
+        this.state = { date: new Date(), messages: '', classnm: 'second', msname: 'seokgwan', options: option.seokgwan, classmsg: '' };
     }
     componentDidMount() {
         this.timerID = setInterval(
@@ -254,46 +254,48 @@ class Home extends Component {
         this.setState({
             date: new Date()
         });
-        if (now.getDay() === 6 || now.getDay() === 0) {
+        if (this.state.date.getDay() === 6 || this.state.date.getDay() === 0) {
             this.setState({ messages: '오늘은 즐거운 주말!' })
         } else {
-            if (hours <= 7) {
-                this.setState({ messages: '좋은 아침!' })
-            }
-            if (hours === 8 && minutes <= 50) {
-                this.setState({ messages: '조회 시간!' })
-            }
-            if (hours === 8 && minutes >= 50 || hours === 9 && minutes < 35) {
-                this.setState({ messages: '1교시 하자!' })
-            }
-            if (hours === 9 && minutes >= 35 || hours === 10 && minutes < 25) {
-                this.setState({ messages: '2교시 하자!' })
-            }
-            if (hours === 10 && minutes >= 25 || hours === 11 && minutes < 15) {
-                this.setState({ messages: '3교시 하자!' })
-            }
-            if (hours === 11 && minutes >= 15 || hours === 12 && minutes < 5) {
-                this.setState({ messages: '4교시 하자!' })
-            }
-            if (hours === 12 && minutes >= 5 || hours === 12 && minutes < 55) {
-                this.setState({ messages: '즐거운 점심시간!' })
-            }
-            if (hours === 12 && minutes >= 55 || hours === 13 && minutes < 40) {
-                this.setState({ messages: '5교시 하자!' })
-            }
-            if (hours === 13 && minutes >= 40 || hours === 14 && minutes < 30) {
-                this.setState({ messages: '6교시 하자!' })
-            }
-            if (now.getDay() === 2 || now.getDay() === 4) {
-                if (hours === 14 && minutes >= 35 || hours === 15 && minutes < 20) {
-                    this.setState({ messages: '7교시 하자!' })
+            if (this.state.msname === 'seokgwan') {
+                if (this.state.date.getHours() <= 7) {
+                    this.setState({ messages: '좋은 아침!' })
                 }
-                if (hours === 15 && minutes >= 20 || hours === 23 && minutes < 59) {
-                    this.setState({ messages: '오늘 하루 고생했어요!' })
+                if (this.state.date.getHours() === 8 && this.state.date.getMinutes() <= 50) {
+                    this.setState({ messages: '조회 시간!' })
                 }
-            } else {
-                if (hours === 14 && minutes >= 30 || hours >= 15) {
-                    this.setState({ messages: '오늘 하루 고생했어요!' })
+                if (this.state.date.getHours() === 8 && this.state.getMinutes() >= 50 || this.state.date.getHours() === 9 && this.state.date.getMinutes() < 35) {
+                    this.setState({ messages: '1교시 하자!', classmsg: ms['seokgwan'][this.state.classnm][0][this.state.date.getDay() - 1] })
+                }
+                if (this.state.date.getHours() === 9 && this.state.getMinutes() >= 35 || this.state.date.getHours() === 10 && this.state.date.getMinutes() < 25) {
+                    this.setState({ messages: '2교시 하자!', classmsg: ms['seokgwan'][this.state.classnm][1][this.state.date.getDay() - 1] })
+                }
+                if (this.state.date.getHours() === 10 && this.state.getMinutes() >= 25 || this.state.date.getHours() === 11 && this.state.date.getMinutes() < 15) {
+                    this.setState({ messages: '3교시 하자!', classmsg: ms['seokgwan'][this.state.classnm][2][this.state.date.getDay() - 1] })
+                }
+                if (this.state.date.getHours() === 11 && this.state.getMinutes() >= 15 || this.state.date.getHours() === 12 && this.state.date.getMinutes() < 5) {
+                    this.setState({ messages: '4교시 하자!', classmsg: ms['seokgwan'][this.state.classnm][3][this.state.date.getDay() - 1] })
+                }
+                if (this.state.date.getHours() === 12 && this.state.getMinutes() >= 5 || this.state.date.getHours() === 12 && this.state.date.getMinutes() < 55) {
+                    this.setState({ messages: '즐거운 점심시간!' })
+                }
+                if (this.state.date.getHours() === 12 && this.state.getMinutes() >= 55 || this.state.date.getHours() === 13 && this.state.date.getMinutes() < 40) {
+                    this.setState({ messages: '5교시 하자!', classmsg: ms['seokgwan'][this.state.classnm][4][this.state.date.getDay() - 1] })
+                }
+                if (this.state.date.getHours() === 13 && this.state.getMinutes() >= 40 || this.state.date.getHours() === 14 && this.state.date.getMinutes() < 30) {
+                    this.setState({ messages: '6교시 하자!', classmsg: ms['seokgwan'][this.state.classnm][5][this.state.date.getDay() - 1] })
+                }
+                if (this.state.date.getDay() === 2 || this.state.date.getDay() === 4) {
+                    if (this.state.date.getHours() === 14 && this.state.date.getMinutes() >= 35 || this.state.date.getHours() === 15 && this.state.date.getMinutes() < 20) {
+                        this.setState({ messages: '7교시 하자!', classmsg: ms['seokgwan'][this.state.classnm][6][this.state.date.getDay() - 1] })
+                    }
+                    if (this.state.date.getHours() === 15 && this.state.getMinutes() >= 20 || this.state.date.getHours() === 23 && this.state.date.getMinutes() < 59) {
+                        this.setState({ messages: '오늘 하루 고생했어요!' })
+                    }
+                } else {
+                    if (this.state.date.getHours() === 14 && this.state.getMinutes() >= 30 || this.state.date.getHours() >= 15) {
+                        this.setState({ messages: '오늘 하루 고생했어요!' })
+                    }
                 }
             }
         }
@@ -312,7 +314,8 @@ class Home extends Component {
                     }
                 </h1>
                 <h1 className='text-2xl'>{this.state.messages}</h1>
-                <div className>
+                <h2 className='text-2xl'>{`${this.state.classmsg} 수업 하자!`}</h2>
+                <div>
                     <Dropdown options={msoption} defaultValue={msoption[0].value} selection onChange={(e, data) => {
                         if (data.value === 'seokgwan') {
                             this.setState({ msname: 'seokgwan', classnm: 'second', options: option.seokgwan })

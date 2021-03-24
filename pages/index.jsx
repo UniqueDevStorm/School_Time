@@ -362,6 +362,39 @@ class Home extends Component {
                             this.setState({ msname: 'seokgwan', classnm: 'second', options: option.seokgwan })
                         } else if (data.value === 'byeolgram') {
                             this.setState({ msname: 'byeolgram', classnm: 'tenth', options: option.byeolgram })
+                            if (this.state.date.getHours() === 9 && this.state.date.getMinutes() >= 10 || this.state.date.getHours() === 9 && this.state.date.getMinutes() < 55) {
+                                this.setState({ messages: '1교시 하자!', classmsg: ms['byeolgram']['tenth'][0][this.state.date.getDay() - 1] })
+                            }
+                            if (this.state.date.getHours() === 9 && this.state.date.getMinutes() >= 55 || this.state.date.getHours() === 10 && this.state.date.getMinutes() < 50) {
+                                this.setState({ messages: '2교시 하자!', classmsg: ms['byeolgram']['tenth'][1][this.state.date.getDay() - 1] })
+                            }
+                            if (this.state.date.getHours() === 10 && this.state.date.getMinutes() >= 50 || this.state.date.getHours() === 11 && this.state.date.getMinutes() < 45) {
+                                this.setState({ messages: '3교시 하자!', classmsg: ms['byeolgram']['tenth'][2][this.state.date.getDay() - 1] })
+                            }
+                            if (this.state.date.getHours() === 11 && this.state.date.getMinutes() >= 45 || this.state.date.getHours() === 12 && this.state.date.getMinutes() < 35) {
+                                this.setState({ messages: '4교시 하자!', classmsg: ms['byeolgram']['tenth'][3][this.state.date.getDay() - 1] })
+                            }
+                            if (this.state.date.getHours() === 12 && this.state.date.getMinutes() >= 35 || this.state.date.getHours() === 13 && this.state.date.getMinutes() < 20) {
+                                this.setState({ messages: '즐거운 점심시간!' })
+                            }
+                            if (this.state.date.getHours() === 13 && this.state.date.getMinutes() >= 20 || this.state.date.getHours() === 14 && this.state.date.getMinutes() < 15) {
+                                this.setState({ messages: '5교시 하자!', classmsg: ms['byeolgram']['tenth'][4][this.state.date.getDay() - 1] })
+                            }
+                            if (this.state.date.getHours() === 14 && this.state.date.getMinutes() >= 15 || this.state.date.getHours() === 15 && this.state.date.getMinutes() < 10) {
+                                this.setState({ messages: '6교시 하자!', classmsg: ms['byeolgram']['tenth'][5][this.state.date.getDay() - 1] })
+                            }
+                            if (this.state.date.getDay() === 4 || this.state.date.getDay() === 5) {
+                                if (this.state.date.getHours() === 15 && this.state.date.getMinutes() >= 10 || this.state.date.getHours() === 16 && this.state.date.getMinutes() < 5) {
+                                    this.setState({ messages: '7교시 하자!', classmsg: ms['byeolgram']['tenth'][6][this.state.date.getDay() - 1] })
+                                }
+                                if (this.state.date.getHours() === 16 && this.state.date.getMinutes() >= 5 || this.state.date.getHours() > 16) {
+                                    this.setState({ messages: '오늘 하루 고생했어요!' })
+                                }
+                            } else {
+                                if (this.state.date.getHours() === 15 && this.state.date.getMinutes() >= 10 || this.state.date.getHours() > 15) {
+                                    this.setState({ messages: '오늘 하루 고생했어요!' })
+                                }
+                            }
                         }
                     }} />
                 </div>
@@ -382,31 +415,45 @@ class Home extends Component {
                     <tbody>
                     <tr>
                         <th>1교시</th>
-                        {ms[this.state.msname][this.state.classnm][0].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.classnm][0].map((r, index) =>
+                            <td key={index}>{r}</td>
+                        )}
                     </tr>
                     <tr>
                         <th>2교시</th>
-                        {ms[this.state.msname][this.state.classnm][1].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.classnm][1].map((r, index) =>
+                            <td key={index}>{r}</td>
+                        )}
                     </tr>
                     <tr>
                         <th>3교시</th>
-                        {ms[this.state.msname][this.state.classnm][2].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.classnm][2].map((r, index) =>
+                            <td key={index}>{r}</td>
+                        )}
                     </tr>
                     <tr>
                         <th>4교시</th>
-                        {ms[this.state.msname][this.state.classnm][3].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.classnm][3].map((r, index) =>
+                            <td key={index}>{r}</td>
+                        )}
                     </tr>
                     <tr>
                         <th>5교시</th>
-                        {ms[this.state.msname][this.state.classnm][4].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.classnm][4].map((r, index) =>
+                            <td key={index}>{r}</td>
+                        )}
                     </tr>
                     <tr>
                         <th>6교시</th>
-                        {ms[this.state.msname][this.state.classnm][5].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.classnm][5].map((r, index) =>
+                            <td key={index}>{r}</td>
+                        )}
                     </tr>
                     <tr>
                         <th>7교시</th>
-                        {ms[this.state.msname][this.state.classnm][6].map(r => <td>{r}</td>)}
+                        {ms[this.state.msname][this.state.classnm][6].map((r, index) =>
+                            <td key={index}>{r}</td>
+                        )}
                     </tr>
                     </tbody>
                 </table>
